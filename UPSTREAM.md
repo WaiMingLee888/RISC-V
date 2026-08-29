@@ -62,6 +62,15 @@ did not predict. `GRT_RESIZER_HOLD_SLACK_MARGIN` is set to 0.02 ns to cover the
 measured 7.4 ps estimation error while leaving the placement-stage margin at
 zero.
 
+Run `33257620930` tested the 0.02 ns post-GRT hold margin described above. It
+classified 357 near-zero-slack endpoints as violations and attempted 357 delay
+buffers (+13.9% cell area); 30 instances could not be legalized. Its repair
+progress showed that a 0.01 ns target is reached after roughly 80--90 buffers,
+while still covering the measured 7.4 ps global-route-to-extracted timing
+mismatch. `GRT_RESIZER_HOLD_SLACK_MARGIN` is therefore narrowed to 0.01 ns,
+with the placement-stage margin remaining zero. Final extracted multi-corner
+timing is still the pass/fail authority.
+
 No claim is made that this migration is a new CPU architecture. The purpose is
 to provide a reproducible, attributed current-template ASIC project around an
 existing working open-source RISC-V design.
