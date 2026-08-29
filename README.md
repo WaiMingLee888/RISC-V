@@ -40,6 +40,7 @@ regenerated from source; ordering a shuttle slot is a separate commercial step.
 
 - [Project datasheet](docs/info.md)
 - [Physical signoff evidence and artifact hashes](docs/SIGNOFF.md)
+- [First-silicon boot and troubleshooting guide](docs/BRINGUP.md)
 - [Exact upstream provenance and changes](UPSTREAM.md)
 - [Tiny Tapeout local hardening guide](https://www.tinytapeout.com/guides/local-hardening/)
 - [Original TT04 NanoV project](https://github.com/MichaelBell/tt04-nanoV)

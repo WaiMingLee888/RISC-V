@@ -22,6 +22,11 @@ module nanoV_cpu #(parameter NUM_REGS=16) (
 
     reg [4:0] counter;
     wire [5:0] next_counter = {1'b0,counter} + 1;
+    reg [31:2] instr;
+    wire take_branch;
+    wire [31:0] core_data_out;
+    wire core_rs2_out;
+    reg [21:0] pc;
     always @(posedge clk)
         if (!rstn) begin
             counter <= 0;
@@ -51,7 +56,6 @@ module nanoV_cpu #(parameter NUM_REGS=16) (
     wire [2:0] instr_cycles = (next_cycle == 1 && next_counter[5] && is_branch && !take_branch) ? 1 : instr_cycles_reg;
     wire [2:0] instr_cycles_assume_branch_not_taken = (next_cycle == 1 && next_counter[5] && is_branch) ? 1 : instr_cycles_reg;
     reg [31:0] next_instr;
-    reg [31:2] instr;
     always @(posedge clk)
         if (!rstn) begin
             cycle <= 0;
@@ -83,11 +87,8 @@ module nanoV_cpu #(parameter NUM_REGS=16) (
     assign data_out = {core_rs2_out,reversed_data_out[30:0]};
 
     wire shift_data_out;
-    wire take_branch;
     wire read_pc;
     wire data_in;
-    wire [31:0] core_data_out;
-    wire core_rs2_out;
     reg use_ext_data_in_reg;
     wire use_ext_data_in = use_ext_data_in_reg || (is_fast_mem && !instr[5]);
     reg last_data_in;
@@ -116,7 +117,6 @@ module nanoV_cpu #(parameter NUM_REGS=16) (
     reg starting_instr_stream;
     reg read_instr;
     reg [1:0] first_instr;
-    reg [21:0] pc;
     wire starting_send_pc = counter[4:3] != 0 && counter < 30;
     wire starting_read_cmd = counter[2] && !counter[1];
     wire starting_instr_out = starting_send_pc ? (is_any_jump ? core_data_out[29] : pc[21]) : starting_read_cmd;

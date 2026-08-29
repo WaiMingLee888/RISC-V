@@ -43,6 +43,9 @@ module nanoV_core #(parameter NUM_REGS=16, parameter REG_ADDR_BITS=4) (
     wire [REG_ADDR_BITS-1:0] rs2 = instr[REG_ADDR_BITS+19:20];
     wire [REG_ADDR_BITS-1:0] rd = instr[REG_ADDR_BITS+6:7];
     wire data_rs1, data_rs2, data_rd;
+    wire alu_write;
+    wire slt;
+    wire slt_req;
     wire data_rd_next = slt;
 
     wire last_count = (counter == 31);
@@ -61,7 +64,7 @@ module nanoV_core #(parameter NUM_REGS=16, parameter REG_ADDR_BITS=4) (
                         is_branch ? {2'b00,instr[14:13]} :
                         {instr[30] && instr[5],instr[14:12]};
     wire alu_select_rs2 = instr[5] && !is_jmp && !is_branch_cycle1 && !is_load_upper && !is_mem;
-    wire alu_write = (instr[4:2] == 3'b100) && !is_mul;
+    assign alu_write = (instr[4:2] == 3'b100) && !is_mul;
     wire alu_imm = is_jmp ? ((cycle == 0) ? (is_jal ? j_imm[counter] : i_imm[counter]) : (counter == 2)) : 
                    is_branch ? b_imm[counter] :
                    is_load_upper ? u_imm[counter] :
@@ -71,8 +74,8 @@ module nanoV_core #(parameter NUM_REGS=16, parameter REG_ADDR_BITS=4) (
     wire alu_b_in = alu_select_rs2 ? data_rs2 : alu_imm;
     wire cy_in = (counter == 0) ? (alu_op[1] || alu_op[3]) : cy;
     wire alu_out, cy_out, lts;
-    wire slt = alu_op[0] == 1 ? ~cy_out : lts;
-    wire slt_req = last_count && (alu_op[2:1] == 2'b01) && instr[4];
+    assign slt = alu_op[0] == 1 ? ~cy_out : lts;
+    assign slt_req = last_count && (alu_op[2:1] == 2'b01) && instr[4];
     nanoV_alu alu(alu_op, alu_a_in, alu_b_in, cy_in, alu_out, cy_out, lts);
 
     reg is_equal_reg;
