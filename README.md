@@ -32,7 +32,7 @@ keep the silicon-area price to two Tiny Tapeout digital tiles.
 
 ## Verification status
 
-Commit `639bf9d58074b700f2d4e8c9460307061e587942` passed the official SKY130
+Commit `42259b9dacef690617f9a22234304898dba2b3c4` passed the official SKY130
 hardening, extracted multi-corner setup and hold timing, detailed-routing and
 Magic DRC, LVS, antenna, Tiny Tapeout precheck, RTL test, and extracted-netlist
 gate-level test. The generated submission remains an Actions artifact and is
