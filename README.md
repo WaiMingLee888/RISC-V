@@ -1,42 +1,50 @@
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+# NanoV RV32E for current Tiny Tapeout SKY130
 
-# Tiny Tapeout Verilog Project Template
+This repository packages the silicon-proven NanoV bit-serial RISC-V core in
+the current Tiny Tapeout SKY130 Verilog template. The physical build targets
+`1x2` tiles, external SPI RAM for instructions and data, and exposes GPIO plus a
+93,750-baud UART when clocked at 12 MHz.
 
-- [Read the documentation for project](docs/info.md)
+The submission top is `tt_um_WaiMingLee888_nanov`, matching the repository
+owner's GitHub username.
 
-## What is Tiny Tapeout?
+## Verification
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r test/requirements.txt
+cd test
+make -B
+! grep failure results.xml
+```
 
-To learn more and get started, visit https://tinytapeout.com.
+The hosted RTL job uses Ubuntu 24.04 and Icarus. See `test/README.md` for the
+local RTL and SKY130 gate-level commands used on this laptop.
 
-## Set up your Verilog project
+The current Tiny Tapeout GitHub workflows run RTL tests, SKY130 hardening,
+precheck, gate-level simulation, and the GDS viewer. A local RTL pass does not
+by itself prove placement, routing, timing, DRC, or LVS; require the GDS and
+precheck workflows to pass before submission.
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+The original TT04 silicon used `1x2`; this repository retains that footprint to
+keep the silicon-area price to two Tiny Tapeout digital tiles.
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+## Verification status
 
-## Enable GitHub actions to build the results page
+The source was copied from the locally signed-off IHP port, but SKY130 physical
+signoff is technology-specific. Do not submit until this repository's RTL,
+gate-level, hardening, timing, DRC, LVS, antenna, and Tiny Tapeout precheck gates
+all pass. Generated `tt_submission` files are ignored because the workflow
+regenerates them from source.
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+- [Project datasheet](docs/info.md)
+- [Exact upstream provenance and changes](UPSTREAM.md)
+- [Tiny Tapeout local hardening guide](https://www.tinytapeout.com/guides/local-hardening/)
+- [Original TT04 NanoV project](https://github.com/MichaelBell/tt04-nanoV)
+- [NanoV core](https://github.com/MichaelBell/nanoV)
 
-## Resources
+## License
 
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+Apache-2.0. The UART source has its own retained MIT license at
+`src/nanoV/uart/LICENSE`.

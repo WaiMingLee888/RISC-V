@@ -1,47 +1,33 @@
-# Sample testbench for a Tiny Tapeout project
+# NanoV integration regression
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+The cocotb test boots `test.mem` through `sim_spi_ram.v` and verifies UART,
+GPIO, and multiply behavior through the Tiny Tapeout wrapper.
 
-## Setting up
-
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
-
-## How to run
-
-To run the RTL simulation:
+From this directory:
 
 ```sh
 make -B
+! grep failure results.xml
 ```
 
-To run gatelevel simulation, first harden your project and copy `../runs/wokwi/results/final/verilog/gl/{your_module_name}.v` to `gate_level_netlist.v`.
+The legacy NanoV RTL elaborates with Icarus 11 or 12. Icarus 13 rejects several
+upstream forward declarations, so the explicit local RTL command on this
+laptop is:
 
-Then run:
+```sh
+ICARUS_BIN_DIR=/home/ai/ttsetup/iverilog11/usr/bin make -B
+```
+
+After a successful SKY130 hardening run has supplied `gate_level_netlist.v` and
+`PDK_ROOT` points to the SKY130 PDK, run:
 
 ```sh
 make -B GATES=yes
+! grep failure results.xml
 ```
 
-If you wish to save the waveform in VCD format instead of FST format, edit tb.v to use `$dumpfile("tb.vcd");` and then run:
+The Makefile loads the SKY130 HD primitives and functional cell models for the
+gate-level run. After changing simulator versions or netlists, remove the old
+build with `GATES=yes make clean` before rerunning.
 
-```sh
-make -B FST=
-```
-
-This will generate `tb.vcd` instead of `tb.fst`.
-
-## How to view the waveform file
-
-Using GTKWave
-
-```sh
-gtkwave tb.fst tb.gtkw
-```
-
-Using Surfer
-
-```sh
-surfer tb.fst
-```
+The waveform is written to `tb.fst`.
