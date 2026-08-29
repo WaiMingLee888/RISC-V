@@ -41,6 +41,13 @@ be legalized. `PL_RESIZER_HOLD_SLACK_MARGIN` and
 the extra optimization cushion; final signoff must still report nonnegative
 hold slack at every analyzed corner.
 
+The second run (`33256494032`) measured −0.049 ns worst hold slack with the
+template's 0.25 ns clock uncertainty. Repairing that small deficit required
+391 buffers (+15.2% cell area), leaving 43 instances unlegalized. The project
+uses 0.20 ns clock uncertainty so that the 50 ps adjustment covers the measured
+deficit without removing clock margin. Multi-corner signoff remains the
+authoritative check.
+
 No claim is made that this migration is a new CPU architecture. The purpose is
 to provide a reproducible, attributed current-template ASIC project around an
 existing working open-source RISC-V design.
