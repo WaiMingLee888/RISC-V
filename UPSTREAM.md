@@ -48,6 +48,13 @@ uses 0.20 ns clock uncertainty so that the 50 ps adjustment covers the measured
 deficit without removing clock margin. Multi-corner signoff remains the
 authoritative check.
 
+Run `33256961286` completed detailed routing with zero DRC and antenna
+violations and zero setup violations. Post-route extraction then found 11 fast
+corner hold endpoints (worst slack −0.0134 ns, TNS −0.0394 ns). The default
+flow had `RUN_POST_GRT_RESIZER_TIMING` disabled, so this project enables that
+standard stage to repair the small routed-parasitic hold deficit before final
+signoff.
+
 No claim is made that this migration is a new CPU architecture. The purpose is
 to provide a reproducible, attributed current-template ASIC project around an
 existing working open-source RISC-V design.
