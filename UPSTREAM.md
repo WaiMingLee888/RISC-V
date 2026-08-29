@@ -33,6 +33,14 @@ footprint. Physical equivalence is not assumed: the current TTSKY26c flow must
 independently pass placement, routing, timing, DRC, LVS, antenna, gate-level
 simulation, and Tiny Tapeout precheck before submission.
 
+The first TTSKY26c physical run (GitHub Actions run `33256241839`) reached CTS
+with nonnegative hold slack, but the template's additional 0.1 ns placement
+hold margin caused 528 hold buffers to be inserted and 81 instances could not
+be legalized. `PL_RESIZER_HOLD_SLACK_MARGIN` and
+`GRT_RESIZER_HOLD_SLACK_MARGIN` are therefore set to `0.0`. This removes only
+the extra optimization cushion; final signoff must still report nonnegative
+hold slack at every analyzed corner.
+
 No claim is made that this migration is a new CPU architecture. The purpose is
 to provide a reproducible, attributed current-template ASIC project around an
 existing working open-source RISC-V design.
