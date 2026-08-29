@@ -41,6 +41,7 @@ regenerated from source; ordering a shuttle slot is a separate commercial step.
 - [Project datasheet](docs/info.md)
 - [Physical signoff evidence and artifact hashes](docs/SIGNOFF.md)
 - [Kimi K3 independent advisory review](docs/K3_REVIEW.md)
+- [TTSKY26c submission handoff](docs/SUBMIT.md)
 - [First-silicon boot and troubleshooting guide](docs/BRINGUP.md)
 - [Exact upstream provenance and changes](UPSTREAM.md)
 - [Tiny Tapeout local hardening guide](https://www.tinytapeout.com/guides/local-hardening/)
