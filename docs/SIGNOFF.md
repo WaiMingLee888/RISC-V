@@ -59,7 +59,7 @@ Hashes of principal extracted files are:
 | GDSII | `447d2647d0a0a730c10701ef425e6a94d2d90aaa3bc2deeaa544e33d0c796455` |
 | OASIS | `304f7f164f7f4da1c1cca458c3080f598c27a4db4eda20c6987836a7f5a1c31f` |
 | Gate-level Verilog | `6fe876bb868e570f1ea7c67b5479232e491d0b66a96558eb6985a04b8dc41c30` |
-| Nominal SPEF | `72c5abf15a0175a6f4d36ee074af48b35f1ffb6d001394294550e490daf39f85` |
+| Nominal SPEF | `69d92c382d4f285db3c93a89550fb3e4323ed9b1e16d30bc572fdbd521db1db4` |
 | Final metrics JSON | `d4968282f231b637ee4c0b4c3c290a06e784abcec695d77154eeab5d616e5318` |
 | GDS render PNG | `d058e2891134e08ad116ff75160dd642694ab73b15809ca1422053c2a877d3bc` |
 
