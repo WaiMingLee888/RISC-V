@@ -55,6 +55,13 @@ flow had `RUN_POST_GRT_RESIZER_TIMING` disabled, so this project enables that
 standard stage to repair the small routed-parasitic hold deficit before final
 signoff.
 
+Run `33257322779` inserted one post-GRT hold buffer and retained zero detailed
+routing and antenna violations. Extracted timing improved to −0.0074 ns worst
+hold slack but exposed 15 fast-corner endpoints that the global-route estimate
+did not predict. `GRT_RESIZER_HOLD_SLACK_MARGIN` is set to 0.02 ns to cover the
+measured 7.4 ps estimation error while leaving the placement-stage margin at
+zero.
+
 No claim is made that this migration is a new CPU architecture. The purpose is
 to provide a reproducible, attributed current-template ASIC project around an
 existing working open-source RISC-V design.
