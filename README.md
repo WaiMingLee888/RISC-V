@@ -32,13 +32,14 @@ keep the silicon-area price to two Tiny Tapeout digital tiles.
 
 ## Verification status
 
-The source was copied from the locally signed-off IHP port, but SKY130 physical
-signoff is technology-specific. Do not submit until this repository's RTL,
-gate-level, hardening, timing, DRC, LVS, antenna, and Tiny Tapeout precheck gates
-all pass. Generated `tt_submission` files are ignored because the workflow
-regenerates them from source.
+Commit `639bf9d58074b700f2d4e8c9460307061e587942` passed the official SKY130
+hardening, extracted multi-corner setup and hold timing, detailed-routing and
+Magic DRC, LVS, antenna, Tiny Tapeout precheck, RTL test, and extracted-netlist
+gate-level test. The generated submission remains an Actions artifact and is
+regenerated from source; ordering a shuttle slot is a separate commercial step.
 
 - [Project datasheet](docs/info.md)
+- [Physical signoff evidence and artifact hashes](docs/SIGNOFF.md)
 - [Exact upstream provenance and changes](UPSTREAM.md)
 - [Tiny Tapeout local hardening guide](https://www.tinytapeout.com/guides/local-hardening/)
 - [Original TT04 NanoV project](https://github.com/MichaelBell/tt04-nanoV)
